@@ -1,216 +1,154 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecChat - 加密私密聊天</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        darkMain: '#0f172a',
-                        darkCard: '#1e293b',
-                        primary: '#3b82f6',
-                        safeGreen: '#10b981'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #0f172a;
-            background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%);
-        }
-        .input-focus:focus {
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>欢迎访问</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0f172a;
+    color:white;
+    text-align:center;
+}
+
+/* 时间 */
+.time-box{
+    position:fixed;
+    top:15px;
+    right:20px;
+    background:#1e293b;
+    padding:8px 14px;
+    border-radius:10px;
+    font-size:14px;
+    color:#93c5fd;
+}
+
+/* 主区域 */
+.hero{
+    padding:100px 20px 60px;
+}
+
+.logo{
+    width:120px;
+    height:120px;
+    border-radius:20px;
+}
+
+h1{
+    margin-top:20px;
+}
+
+.desc{
+    color:#94a3b8;
+    margin:20px auto;
+    max-width:600px;
+}
+
+/* 按钮 */
+.btn{
+    display:inline-block;
+    margin:10px;
+    padding:14px 30px;
+    background:#2563eb;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.05);
+}
+
+/* TG 引导 */
+.tg-box{
+    margin-top:20px;
+    background:#1e293b;
+    padding:12px;
+    border-radius:12px;
+    font-size:14px;
+    color:#93c5fd;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.tg-box:hover{
+    background:#334155;
+}
+
+/* 卡片 */
+.card{
+    background:#1e293b;
+    margin:20px;
+    padding:20px;
+    border-radius:15px;
+    max-width:500px;
+    margin-left:auto;
+    margin-right:auto;
+}
+</style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 text-gray-200">
-    <div class="w-full max-w-md bg-darkCard rounded-2xl p-8 shadow-xl border border-gray-700">
-        <!-- 标题区域 -->
-        <div class="text-center mb-8">
-            <div class="inline-block p-4 bg-primary/20 rounded-full mb-4">
-                <i class="fa fa-shield text-3xl text-primary"></i>
-            </div>
-            <h1 class="text-[26px] font-bold text-white">SecChat 加密聊天</h1>
-            <p class="text-gray-400 mt-2 text-sm">端到端加密 · 隐私全程保护</p>
-        </div>
+<body>
 
-        <!-- 注册表单 -->
-        <form id="registerForm" class="space-y-5">
-            <!-- 手机号输入 -->
-            <div>
-                <label class="block text-sm mb-2 text-gray-300">手机号码</label>
-                <div class="relative">
-                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">+86</span>
-                    <input 
-                        type="tel" 
-                        id="phone" 
-                        maxlength="11"
-                        placeholder="请输入11位手机号"
-                        class="w-full pl-12 pr-4 py-3 bg-darkMain border border-gray-600 rounded-lg outline-none input-focus transition-all"
-                        required
-                    >
-                </div>
-                <p id="phoneTip" class="text-red-400 text-xs mt-1 hidden">请输入正确11位手机号码</p>
-            </div>
+<!-- 时间 -->
+<div class="time-box" id="timeBox">--:--:--</div>
 
-            <!-- 验证码 -->
-            <div>
-                <label class="block text-sm mb-2 text-gray-300">短信验证码</label>
-                <div class="flex gap-3">
-                    <input 
-                        type="text" 
-                        id="code" 
-                        maxlength="6"
-                        placeholder="6位数字验证码"
-                        class="flex-1 px-4 py-3 bg-darkMain border border-gray-600 rounded-lg outline-none input-focus transition-all"
-                        required
-                    >
-                    <button 
-                        type="button" 
-                        id="sendCodeBtn"
-                        class="px-4 py-3 bg-primary hover:bg-primary/80 rounded-lg transition-all text-sm whitespace-nowrap"
-                    >
-                        获取验证码
-                    </button>
-                </div>
-            </div>
+<div class="hero">
+    <img src="logo.png" class="logo">
+    <h1>网站名称</h1>
+    <p class="desc">
+        欢迎来到本站，这里是你的引导页面
+    </p>
 
-            <!-- 加密密码 -->
-            <div>
-                <label class="block text-sm mb-2 text-gray-300">加密密钥密码</label>
-                <div class="relative">
-                    <input 
-                        type="password" 
-                        id="pwd" 
-                        placeholder="设置8-20位登录加密密码"
-                        class="w-full px-4 py-3 bg-darkMain border border-gray-600 rounded-lg outline-none input-focus transition-all pr-10"
-                        required
-                    >
-                    <button type="button" id="showPwd" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
-                        <i class="fa fa-eye-slash"></i>
-                    </button>
-                </div>
-                <p class="text-gray-500 text-xs mt-1">密码将用于本地消息加密，丢失无法找回</p>
-            </div>
+    <!-- 按钮 -->
+    <div class="btn" onclick="goSite()">🚀 立即进入</div>
+    <div class="btn" onclick="goSite()">📩 联系我们</div>
 
-            <!-- 用户协议 -->
-            <div class="flex items-start gap-2">
-                <input type="checkbox" id="agree" class="mt-1 accent-primary w-4 h-4">
-                <label for="agree" class="text-xs text-gray-400">
-                    我已阅读并同意 <a href="#" class="text-primary hover:underline">用户隐私协议</a> 与 <a href="#" class="text-primary hover:underline">加密服务条款</a>
-                </label>
-            </div>
-
-            <!-- 注册按钮 -->
-            <button 
-                type="submit" 
-                class="w-full py-3 bg-safeGreen hover:bg-safeGreen/80 rounded-lg font-medium transition-all mt-2"
-            >
-                完成注册并进入加密聊天室
-            </button>
-        </form>
-
-        <!-- 跳转登录 -->
-        <div class="text-center mt-6 text-sm text-gray-400">
-            已有加密账号？
-            <a href="#" class="text-primary hover:underline">前往登录</a>
-        </div>
-
-        <!-- 安全说明 -->
-        <div class="mt-8 p-4 bg-darkMain rounded-lg border border-gray-700/60">
-            <p class="text-xs text-gray-400 leading-relaxed">
-                <i class="fa fa-lock text-safeGreen mr-1"></i>
-                本服务采用本地AES消息加密，服务器不储存明文聊天内容；仅手机号用于账号身份校验，不会对外泄露你的通讯数据。
-            </p>
-        </div>
+    <!-- TG -->
+    <div class="tg-box" onclick="copyTG()">
+        📢 官方频道：@chenmou114514（点击复制加入）
     </div>
+</div>
 
-    <script>
-        // 元素获取
-        const form = document.getElementById('registerForm');
-        const phone = document.getElementById('phone');
-        const phoneTip = document.getElementById('phoneTip');
-        const sendCodeBtn = document.getElementById('sendCodeBtn');
-        const pwd = document.getElementById('pwd');
-        const showPwd = document.getElementById('showPwd');
-        const agree = document.getElementById('agree');
+<div class="card">
+    <h2>公告</h2>
+    <p>本站持续更新中，请收藏！</p>
+</div>
 
-        // 手机号格式校验
-        phone.addEventListener('blur', () => {
-            const reg = /^1[3-9]\d{9}$/;
-            if(phone.value && !reg.test(phone.value)){
-                phoneTip.classList.remove('hidden');
-            }else{
-                phoneTip.classList.add('hidden');
-            }
-        })
+<div class="card">
+    <h2>功能介绍</h2>
+    <p>支持手机 / 电脑访问 · 简洁快速</p>
+</div>
 
-        // 显示/隐藏密码
-        showPwd.addEventListener('click', () => {
-            const icon = showPwd.querySelector('i');
-            if(pwd.type === 'password'){
-                pwd.type = 'text';
-                icon.className = 'fa fa-eye';
-            }else{
-                pwd.type = 'password';
-                icon.className = 'fa fa-eye-slash';
-            }
-        })
+<script>
+// 跳转
+function goSite(){
+    window.open("https://chenmou828.github.io/demo-site/", "_blank", "noopener,noreferrer");
+}
 
-        // 验证码倒计时
-        let countDownTimer = null;
-        sendCodeBtn.addEventListener('click', () => {
-            const reg = /^1[3-9]\d{9}$/;
-            if(!reg.test(phone.value)){
-                phoneTip.classList.remove('hidden');
-                return alert('请填写有效的11位手机号');
-            }
-            // 倒计时逻辑
-            let time = 60;
-            sendCodeBtn.disabled = true;
-            sendCodeBtn.classList.add('opacity-60');
-            sendCodeBtn.innerText = `${time}秒后重发`;
-            countDownTimer = setInterval(() => {
-                time--;
-                sendCodeBtn.innerText = `${time}秒后重发`;
-                if(time <= 0){
-                    clearInterval(countDownTimer);
-                    sendCodeBtn.disabled = false;
-                    sendCodeBtn.classList.remove('opacity-60');
-                    sendCodeBtn.innerText = '获取验证码';
-                }
-            },1000)
-            alert('【模拟】验证码已发送至你的手机（演示无真实短信）');
-        })
+// 复制 TG
+function copyTG(){
+    navigator.clipboard.writeText("@chenmou114514");
+    alert("已复制频道，请打开Telegram搜索加入");
+}
 
-        // 表单提交
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const regPhone = /^1[3-9]\d{9}$/;
-            const regPwd = /^.{8,20}$/;
+// 时间
+function updateTime(){
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const s = String(now.getSeconds()).padStart(2,'0');
 
-            // 校验判断
-            if(!regPhone.test(phone.value)){
-                phoneTip.classList.remove('hidden');
-                return;
-            }
-            if(!regPwd.test(pwd.value)){
-                return alert('密码长度必须8-20位');
-            }
-            if(!agree.checked){
-                return alert('请勾选同意服务协议');
-            }
+    document.getElementById("timeBox").innerText = `${h}:${m}:${s}`;
+}
 
-            // 模拟注册成功
-            alert(`注册模拟成功！\n手机号：${phone.value}\n你的本地加密密钥已生成\n【提示：本页面仅前端演示，无真实聊天功能】`);
-        })
-    </script>
+setInterval(updateTime,1000);
+updateTime();
+</script>
+
 </body>
 </html>
