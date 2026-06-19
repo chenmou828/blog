@@ -73,6 +73,7 @@ h1{
     font-size:14px;
     color:#93c5fd;
     cursor:pointer;
+    transition:0.2s;
 }
 
 .tg-box:hover{
@@ -91,6 +92,7 @@ h1{
 }
 </style>
 </head>
+
 <body>
 
 <!-- 时间 -->
@@ -103,13 +105,13 @@ h1{
         欢迎来到本站，这里是你的引导页面
     </p>
 
-    <!-- 按钮（已修正） -->
-    <div class="btn" onclick="goPhone()">手机号轰炸</div>
-    <div class="btn" onclick="goEmail()">邮箱轰炸</div>
+    <!-- 按钮（已修正跳转） -->
+    <div class="btn" onclick="goDemo()">手机号轰炸</div>
+    <div class="btn" onclick="goMain()">邮箱轰炸</div>
 
-    <!-- TG -->
-    <div class="tg-box" onclick="copyTG()">
-        📢 官方频道：@chenmou114514（点击复制加入）
+    <!-- TG频道 -->
+    <div class="tg-box" onclick="openTG()">
+        📢 官方频道：@chenmou114514（点击进入）
     </div>
 </div>
 
@@ -124,23 +126,52 @@ h1{
 </div>
 
 <script>
-// ✅ 手机号 → demo-site（已修正）
-function goPhone(){
-    window.open("https://chenmou828.github.io/demo-site/", "_blank", "noopener,noreferrer");
+
+/* =========================
+   ✅ 跳转按钮（已整理清楚）
+========================= */
+
+// demo站
+function goDemo(){
+    window.open(
+        "https://chenmou828.github.io/demo-site/",
+        "_blank",
+        "noopener,noreferrer"
+    );
 }
 
-// ✅ 邮箱 → 主站（已修正）
-function goEmail(){
-    window.open("https://chenmou828.github.io/", "_blank", "noopener,noreferrer");
+// 主站
+function goMain(){
+    window.open(
+        "https://chenmou828.github.io/",
+        "_blank",
+        "noopener,noreferrer"
+    );
 }
 
-// 复制 TG
-function copyTG(){
-    navigator.clipboard.writeText("@chenmou114514");
-    alert("已复制频道，请打开Telegram搜索加入");
+
+/* =========================
+   ✅ Telegram频道跳转
+========================= */
+
+function openTG(){
+
+    const tgWeb = "https://t.me/chenmou114514";
+
+    // 先尝试打开App（第三方TG也支持）
+    window.location.href = "tg://resolve?domain=chenmou114514";
+
+    // 备用：网页打开
+    setTimeout(()=>{
+        window.open(tgWeb, "_blank", "noopener,noreferrer");
+    }, 500);
 }
 
-// 时间
+
+/* =========================
+   ✅ 实时时间
+========================= */
+
 function updateTime(){
     const now = new Date();
     const h = String(now.getHours()).padStart(2,'0');
@@ -152,6 +183,7 @@ function updateTime(){
 
 setInterval(updateTime,1000);
 updateTime();
+
 </script>
 
 </body>
